@@ -18,7 +18,6 @@
 %%%% Structural stuff
 \usepackage{subcaption}
 \usepackage{minted} % Python syntax highlighting!
-%\usemintedstyle{tango}
 
 %%%% Leftanguage and font settings
 \usepackage[T1]{fontenc} % Proper output encoding for diacritics, etc.
@@ -33,7 +32,7 @@
 \usepackage{xcolor} % Easier handling of colors.
 
 %%%% Title, author, etc.
-\title{COMP3702 MDP Tutorial}
+\title{MDP Tutorial}
 \author{Dimitri Klimenko}
 
 %%%% Setup for the hyperref package.
@@ -57,8 +56,7 @@
 
 \maketitle
 
-\section{Q3 from Tutorial 6/7}
-
+\section{Problem statement}
 \begin{figure}[h]
   \centering
   \caption{The environment}
@@ -119,7 +117,7 @@ if we were using Monte-Carlo Tree Search to solve this problem.
 The robot can only go left or right, so the action space for the problem is
 simply
 \begin{equation*}
-  \actSpace = \{ Left, Right \}
+  \actSpace = \{ Left, Right \} .
 \end{equation*}
 
 \subsection{Transition function}
@@ -227,13 +225,13 @@ $$R(s, a, s') , $$
 which represents the reward for reaching $s'$ after taking action $a$
 from state $s$.
 
-As we've said that the robot eternally recieves no rewards after $s_4$ is reached,
+As we've said that the robot eternally receives no rewards after $s_4$ is reached,
 this means that
 \begin{equation*}
   R(s_4, Left, s_4) = R(s_4, Right, s_4) = 0 .
 \end{equation*}
 The robot is given a reward of 10 reaching $s_4$;
-we can also see by inspection of the trancition matrices that the only possible
+we can also see by inspection of the transition matrices that the only possible
 way to reach $s_4$ is by going $Right$ from $s_3$.
 Since it costs the robot $1$ utilon every time it moves, we have
 \begin{equation*}
@@ -633,14 +631,14 @@ The underlying idea is a rather simple one:
 for our policy to be \emph{optimal},
 it would have to get the absolute maximum possible expected utility
 out of every single state we could end up in,
-taking into account the fact that it will also continue to maximise
+taking into account the fact that it will also continue to maximize
 the expected utility from all future states.
 Since an MDP involves uncertainty we're necessarily working with
 expected utility here---it's not possible to design an agent that
 always gets the maximum possible reward every time, because it
 might get unlucky.
-However, although we can't necessarily maximise our utility, we \emph{can}
-ensure that we maximise the \emph{expected utility}.
+However, although we can't necessarily maximize our utility, we \emph{can}
+ensure that we maximize the \emph{expected utility}.
 
 Fortunately, by a theorem we know that there actually exists an
 \emph{optimal value function} $\val^*$, which correctly describes the maximum
@@ -731,10 +729,10 @@ This is basically the Bellman equation, except with the difference that the
 left hand side of the equation has $\val^{t+1}$ whereas the right-hand side
 has $\widetilde{Q}^t$ and $\val^t$.
 In other words, the value function for the next iteration is always received
-by using a one-step lookahead relative to the previous iteration.
+by using a one-step look-ahead relative to the previous iteration.
 That's all there is to it.
 Note also that $\widetilde{Q}^t$ is simply the one-step Q-value estimate
-for the value functinon $\val^t$, just like in Equation~\ref{eq:q_est}.
+for the value function $\val^t$, just like in Equation~\ref{eq:q_est}.
 
 \subsection{Applying it to our robot problem}
 So, let's go ahead and try it!
@@ -849,7 +847,7 @@ $\val^t(s_1), \val^t(s_2), \val^t(s_3), \val^t(s_4)$ in our example.
 So, once we've worked out the value $\val^t$ of our policy $\pol^t$, what do we do next?
 Well, we improve the policy by looking one step ahead, just like we improved our
 value function by looking one step ahead in Section~\ref{ssec:one_step}.
-Using the supersript notation in Equation~\ref{eq:one_step_pol} gives us this:
+Using the superscript notation in Equation~\ref{eq:one_step_pol} gives us this:
 \begin{align}
   \pol^{t+1}(s) &= \argmax_a \widetilde{Q}^t(s, a) \nonumber \\
                 &= \argmax_a \sum_{s'} T(s, a, s') \bigg[ R(s, a, s') + \gamma \val^t(s') \bigg] . \label{eq:pol_pol_it}
@@ -891,7 +889,7 @@ We can also represent this in vector form,
 \end{equation*}
 Now we need to figure out our policy for the next step, $\pol^1$,
 using Equation~\ref{eq:one_step_pol}.
-In order to do this, we just have to calculate the Q-value esimates
+In order to do this, we just have to calculate the Q-value estimates
 for each action from each state, and pick the action with the highest value.
 This is just like when we calculated the Q-values for value iteration,
 but this time we're trying to work out the one-step \emph{best action}
@@ -919,7 +917,7 @@ our next policy for policy iteration is
   \pol^1(s_4) = Left .
 \end{gather*}
 As you can see, the policy has gotten a little bit smarter;
-we've realised that based on what we know so far
+we've realized that based on what we know so far
 going right from $s_3$ is better than going left,
 and so we've changed our policy to reflect this.
 
