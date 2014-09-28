@@ -367,8 +367,8 @@ This is the way we describe how the agent in an MDP will act;
 in the context of a game we might also call this a \emph{strategy}.
 
 If we associate the states with a specific order, we can also represent a
-policy as an ordered list of actions \emph{tuple} that lists one action
-for each state.
+policy as a \emph{tuple}, an ordered list of actions that
+lists one action for each state.
 In this case, the obvious ordering is $(s_1, s_2, s_3, s_4)$,
 and so an example policy is
 \begin{equation*}
@@ -415,14 +415,14 @@ states.
 
 Equation~\ref{eq:val_pol} simply represents a calculation of the expected value
 over different possibilities for the next state.
-This is the sum of two terms:
-the value of a given state is the expected value of the immediate reward,
+In other words, the expected value of a given state is the sum of two terms;
+the expected value of the immediate reward,
 \begin{equation} \label{eq:e_rew}
-  \expec{R(s, a, \cdot)} = \sum_{s'} T(s, \pol(s), s') R(s, \pol(s), s')
+  \expec{R(s, a, \cdot)} = \sum_{s'} T(s, \pol(s), s') R(s, \pol(s), s') ,
 \end{equation}
-added to the discounted expected value of the next state,
+and the discounted expected value of the next state,
 \begin{equation}
-  \gamma \sum_{s'} T(s, \pol(s), s') \val_\pol(s') .
+  \gamma \expec{\val_{\pol}(\text{next state})} = \gamma \sum_{s'} T(s, \pol(s), s') \val_\pol(s') .
 \end{equation}
 If the reward was independent of the next state, we could represent
 our reward with a function $R(s, a)$ instead,
@@ -537,8 +537,8 @@ The way we make sense of this idea is that we specifically look
 only \emph{one step ahead} in working out which action to take
 from every state - this is a \emph{one-step best policy}.
 
-To make this simpler, we introduce the notion of a \emph{Q-value} $Q^*(s, a)$.
-The Q-value of a state and action is the value of taking action $a$ from
+To make this simpler, we introduce the notion of a \emph{Q-value}.
+The optimal Q-value $Q^*(s, a)$ is the value of taking action $a$ from
 state $s$, and following an optimal policy therewith.
 However, for a one-step best policy we don't necessarily know that our value
 function correctly represents the value of an optimal policy,
@@ -565,7 +565,7 @@ we look one step ahead for every state and choose the action that has the
 best one-step value for each state.
 Consequently, the one-step best policy can be defined like this:
 \begin{equation} \label{eq:one_step_pol}
-  \widetilde{\pol}_\val(s) = \argmax_a \widetilde{Q}_\val(s, a) = \argmax_a \sum_{s'} T(s, a, s') \bigg[ R(s, a, s') + \gamma \val_\pol(s') \bigg] ,
+  \widetilde{\pol}_\val(s) = \argmax_a \widetilde{Q}_\val(s, a) = \argmax_a \sum_{s'} T(s, a, s') \bigg[ R(s, a, s') + \gamma \val(s') \bigg] ,
 \end{equation}
 which simply states that our policy always takes the action that has the largest
 expected value when we look one step ahead with our given value function $\val$.
@@ -1184,12 +1184,12 @@ In summary, we have
   \pol^*(s_4) = Left ,
 \end{gather*}
 and
-\begin{equation*}
+\begin{gather*}
   \val^*(s_1) = 5.2151 \\
   \val^*(s_2) = 6.8740 \\
   \val^*(s_3) = 8.6420 \\
   \val^*(s_4) = 0 .
-\end{equation*}
+\end{gather*}
 
 Since the value for $s_1$ is 5.2151, we can now confidently say that
 the maximum expected utility for the robot is 5.2151 when it starts at
