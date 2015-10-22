@@ -58,7 +58,14 @@
 \tableofcontents
 \clearpage
 
-\section{Problem statement}
+\section{Problem description}
+Suppose you need to solve a simple robot navigation problem. The robot operates
+in a grid environment, as shown in Figure~\ref{fig:env}. The robot starts in cell 1 and the goal is
+to move to cell 4. It has two actions: Left and Right. Given a left (or right) control
+action, the robot will correctly move to the cell at the left (or right) of its current cell
+with probability 0.8. It will remain in its current cell with probability 0.2. If the action
+causes the robot to move outside of the boundary, then the robot will remain in its
+current cell. 
 \begin{figure}[h]
   \centering
   \caption{The environment}
@@ -69,24 +76,20 @@
     \hline
   \end{tabular}
 \end{figure}
-A robot navigates in a very simple environment,
-as shown in Figure~\ref{fig:env}.
-Suppose the robot starts from cell 1 and tries to reach the goal state, which is
-cell 4.
-At each time step, the robot can attempt to move one cell to the left,
-or one cell to the right.
-However, due to control error, every time the robot moves,
-it has an 80\% chance of ending up in its intended cell and also a 20\%
-chance of staying where it is.
-If the robot tries to move left from cell 1, it will simply stay in the
-same place.
-Each attempted move costs the robot 1 utilon,
-while reaching the goal gives a reward of 10.
-
-Please model the above navigation problem as an MDP with an infinite horizon and
-discount factor $\gamma=0.95$.
-
 \section{MDP model}
+The description above is sufficient to define the states, actions and transitions for our MDP.
+However, in order to properly specify the robot's goal, we will also need a reward function;
+this function must encode the idea that the robot's goal is to move to cell 4.
+
+The simplest way of doing this would be to reward the robot simply for being in cell 4,
+but then this reward would be received many times over after reaching cell 4.
+Instead, we 
+
+
+In order to 
+
+In order to 
+
 Our MDP model is $(\stSpace, \actSpace, \transFunc, \rewFunc, \gamma)$, where
 \begin{itemize}
   \item $\stSpace$ is the state space.
